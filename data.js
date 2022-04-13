@@ -291,7 +291,7 @@ const reviews = [
   },
 ];
 
-
+// export for use elsewhere!
 module.exports = {
   products,
   categories,

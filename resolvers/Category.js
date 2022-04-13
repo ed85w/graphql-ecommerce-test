@@ -1,4 +1,5 @@
 // associate products with categories
+// used when category or categories query is fired with 'products' included - NOT 'product', won't work)
 
 // exports.Category = {
 //   products: (parent, args, context) => {
@@ -15,7 +16,6 @@ exports.Category = {
 
     if(filter){
       const { onSale, avgRating } = filter
-      // console.log("on sale", onSale)
       // sale filter
       if(onSale) {
         filteredCategoryProducts = filteredCategoryProducts.filter(product => {

@@ -1,4 +1,5 @@
 // associate category, reviews with product
+// used when product or products query is fired with the relevant sub type included - eg category and/or reviews
 
 // exports.Product = {
 //   category: (parent, args, context) => {

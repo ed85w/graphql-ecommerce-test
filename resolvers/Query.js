@@ -1,5 +1,4 @@
-const { reviews } = require("../data")
-// base queries
+// base queries (reolvers)
 
 
 exports.Query = {

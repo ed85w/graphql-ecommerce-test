@@ -16,7 +16,7 @@ const server = new ApolloServer({
     Product,
     Review
   },
-  // context allows us to pass the context/data (for use in Query.js, Category.js, Product.js)
+  // context allows us to pass the context/data (for use in Query.js, Category.js, Product.js etc)
   context: {
     products,
     categories,
