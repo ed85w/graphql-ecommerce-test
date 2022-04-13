@@ -13,6 +13,13 @@ exports.typeDefs = gql`
     review(id: ID!): Review!
   }
 
+  #mutations (add/delete/update)
+  type Mutation {
+    addCategory(input: AddCategoryInput!): Category!
+    addProduct(input: AddProductInput!): Product!
+    addReview(input: AddReviewInput!): Review!
+  }
+
   # data 
   type Product {
     id: ID!
@@ -41,10 +48,35 @@ exports.typeDefs = gql`
     product: Product!
   }
 
+  # inputs - used for filters and mutations
+
   # filter (see query.js category.js for uses)
   input ProductsFilterInput {
     onSale: Boolean
     avgRating: Int
+  }
+
+  #input
+  input AddCategoryInput {
+    name: String!
+  }
+
+  input AddProductInput {
+    name: String!   
+    description: String!
+    quantity: Int!
+    price: Float!
+    image: String!
+    onSale: Boolean!
+    categoryId: String!
+  }
+
+  input AddReviewInput {
+    date: String!
+    title: String!
+    comment: String!
+    rating: Int!
+    productId: String!
   }
   
 `
