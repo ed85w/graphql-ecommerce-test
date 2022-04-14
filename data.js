@@ -292,7 +292,7 @@ const reviews = [
 ];
 
 // export for use elsewhere!
-module.exports = {
+exports.data = {
   products,
   categories,
   reviews

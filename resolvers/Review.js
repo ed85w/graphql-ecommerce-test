@@ -7,7 +7,7 @@
 // }
 
 exports.Review = {
-  product: ({productId}, args, {products}) => {
-    return products.find((product) => product.id === productId);
+  product: ({productId}, args, { data }) => {
+    return data.products.find((product) => product.id === productId);
   }
 }

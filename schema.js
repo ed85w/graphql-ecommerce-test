@@ -15,9 +15,18 @@ exports.typeDefs = gql`
 
   #mutations (add/delete/update)
   type Mutation {
+    #add
     addCategory(input: AddCategoryInput!): Category!
     addProduct(input: AddProductInput!): Product!
     addReview(input: AddReviewInput!): Review!
+
+    #delete
+    deleteCategory(id: ID!): Boolean!
+    deleteProduct(id: ID!): Boolean!
+    deleteReview(id: ID!): Boolean!
+
+    # update
+    updateCategory(id: ID!, input: UpdateCategoryInput!): Category!
   }
 
   # data 
@@ -76,7 +85,11 @@ exports.typeDefs = gql`
     title: String!
     comment: String!
     rating: Int!
-    productId: String!
+    productId: ID!
+  }
+
+  input UpdateCategoryInput {
+    name: String!
   }
   
 `

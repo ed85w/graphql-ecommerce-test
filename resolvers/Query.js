@@ -3,8 +3,8 @@
 
 exports.Query = {
   // resolver (eg 'products') has to match type defs query (in schema.js)
-  products: (parent, {filter}, {products}) => {
-    let filteredProducts = products
+  products: (parent, {filter}, {data}) => {
+    let filteredProducts = data.products
 
     if(filter){
       const { onSale, avgRating } = filter
@@ -26,7 +26,7 @@ exports.Query = {
           let numberOfReviews = 0;
           
           // loop through reviews
-          reviews.forEach((review) => {
+          data.reviews.forEach((review) => {
             // if the review matches the current product 
             if(review.productId === product.id) {
               numberOfReviews += 1;
@@ -45,27 +45,27 @@ exports.Query = {
     return filteredProducts
   },
 
-  product: (parent, args, {products}) => {
+  product: (parent, args, {data}) => {
     const productID = args.id;
-    const product = products.find((product) => product.id === productID)
+    const product = data.products.find((product) => product.id === productID)
 
     if (!product) return null
     return product;
   },
 
-  categories: (parent, args, {categories}) => {
-    return categories
+  categories: (parent, args, {data}) => {
+    return data.categories
   },  // same as products above, just different syntax
 
-  category: (parent, { id }, {categories}) => {                      // same as product above, just different syntax
-    return categories.find((category) => category.id == id);
+  category: (parent, { id }, {data}) => {                      // same as product above, just different syntax
+    return data.categories.find((category) => category.id == id);
   },
 
-  reviews: (parent, args, {reviews}) => {
-    return reviews
+  reviews: (parent, args, {data}) => {
+    return data.reviews
   },
 
-  review: (parent, { id }, {reviews}) => {                    
-    return reviews.find((review) => review.id == id);
+  review: (parent, { id }, {data}) => {                    
+    return data.reviews.find((review) => review.id == id);
   },
 }

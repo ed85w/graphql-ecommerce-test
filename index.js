@@ -6,7 +6,7 @@ const { Product } = require('./resolvers/Product');
 const { Review } = require('./resolvers/Review');
 const { Mutation } = require('./resolvers/Mutation')
 
-const { products, categories, reviews } = require('./data');
+const { data } = require('./data');
 
 
 const server = new ApolloServer({
@@ -20,9 +20,10 @@ const server = new ApolloServer({
   },
   // context allows us to pass the context/data (for use in Query.js, Category.js, Product.js etc)
   context: {
-    products,
-    categories,
-    reviews,
+    // products,
+    // categories,
+    // reviews,
+    data
   }
 });
 

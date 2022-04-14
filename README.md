@@ -28,6 +28,8 @@ query {
 
 example mutation;
 
+add...
+
 mutation {
   addProduct(input: {
     name: "fork",
@@ -41,4 +43,11 @@ mutation {
     name
     description
   }
+}
+
+
+delete...
+
+mutation {
+  deleteProduct(id: "53a0724c-a416-4cac-ae45-bfaedce1f147")
 }

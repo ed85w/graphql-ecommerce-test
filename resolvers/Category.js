@@ -10,8 +10,8 @@
 
 // cleaner syntax - uses destructuring 
 exports.Category = {
-  products: ({ id: categoryId }, { filter }, { products, reviews }) => {
-    const categoryProducts = products.filter(product => product.categoryId === categoryId);
+  products: ({ id: categoryId }, { filter }, { data }) => {
+    const categoryProducts = data.products.filter(product => product.category === categoryId);
     let filteredCategoryProducts = categoryProducts
 
     if(filter){
@@ -33,7 +33,7 @@ exports.Category = {
           let numberOfReviews = 0;
           
           // loop through reviews
-          reviews.forEach((review) => {
+          data.reviews.forEach((review) => {
             // if the review matches the current product 
             if(review.productId === product.id) {
               numberOfReviews += 1;
