@@ -4,7 +4,7 @@ install node modules first obs!
 
 example queries in playground;
 
-query {
+`query {
   products {
     name
     description
@@ -12,10 +12,10 @@ query {
       name
     }
   }
-}
+}`
 
 
-query {
+`query {
   category(id: "c01b1ff4-f894-4ef2-b27a-22aacc2fca70") {
     name
     products {
@@ -24,7 +24,7 @@ query {
       description
     }
   }
-}
+}`
 
 example mutation;
 
