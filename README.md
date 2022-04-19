@@ -30,7 +30,7 @@ example mutation;
 
 add...
 
-mutation {
+`mutation {
   addProduct(input: {
     name: "fork",
     description: "a fork",
@@ -43,11 +43,11 @@ mutation {
     name
     description
   }
-}
+}`
 
 
 delete...
 
-mutation {
+`mutation {
   deleteProduct(id: "53a0724c-a416-4cac-ae45-bfaedce1f147")
-}
+}`

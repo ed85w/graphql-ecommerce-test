@@ -23,7 +23,7 @@ const server = new ApolloServer({
     // products,
     // categories,
     // reviews,
-    data
+    data   // see data.js
   }
 });
 

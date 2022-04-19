@@ -1,6 +1,6 @@
 // define structure of data and queries
 // scala types = String, Int, Float, Boolean. '!' means no null value allowed (ie required field)
-const {  gql } = require("apollo-server");
+const { gql } = require("apollo-server");
 
 exports.typeDefs = gql`
   # queries
@@ -27,6 +27,7 @@ exports.typeDefs = gql`
 
     # update
     updateCategory(id: ID!, input: UpdateCategoryInput!): Category!
+    updateProduct(id: ID!, input: UpdateProductInput!): Product!
   }
 
   # data 
@@ -90,6 +91,15 @@ exports.typeDefs = gql`
 
   input UpdateCategoryInput {
     name: String!
+  }
+
+  input UpdateProductInput {
+    name: String!   
+    description: String!
+    quantity: Int!
+    price: Float!
+    image: String!
+    onSale: Boolean!
   }
   
 `

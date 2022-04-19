@@ -97,5 +97,12 @@ exports.Mutation = {
     data.categories = data.categories.map((category) => category.id === id ? { ...category, name: input.name } : category);
     // return the updated category
     return data.categories.find((category) => category.id == id);
+  },
+  updateProduct: (parent, {id, input}, { data }) => {
+
+    data.products = data.products.map((product) => product.id === id ? {...product, ...input } : product);
+
+    return data.products.find((product) => product.id == id);
+
   }
 }
