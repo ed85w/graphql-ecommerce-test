@@ -27,6 +27,8 @@ const server = new ApolloServer({
   }
 });
 
-server.listen().then(({url}) => {
+const PORT = process.env.PORT || 5000;  // default is same as react, so change to 5000
+
+server.listen(PORT).then(({url}) => {
   console.log("server is ready at " + url)
 })
