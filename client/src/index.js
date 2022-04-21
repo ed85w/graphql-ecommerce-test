@@ -1,40 +1,40 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import { render } from "react-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import {
   ApolloClient,
   InMemoryCache,
-  ApolloProvider,
-  useQuery,
-  gql
+  ApolloProvider
 } from "@apollo/client";
+import App from './App';
+import ProductPage from './components/ProductPage';
+import Shop from './components/Shop'
+
 
 const client = new ApolloClient({
   uri: 'http://localhost:5000/',
   cache: new InMemoryCache()
 });
 
-client
-  .query({
-    query: gql`
-      query {
-        products {
-          name
-          description
-          category {
-            name
-          }
-        }
-      }
-    `
-  })
-  .then(result => console.log(result));
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <BrowserRouter>
+    <ApolloProvider client={client}>
+      <Routes>
+        <Route path='/' element={<App/>}>
+          <Route
+            index
+            element={
+              <Shop />
+            }
+          />
+          <Route path=':slug' element={<ProductPage/>}/>
+        </Route>
+      </Routes>
+    </ApolloProvider>
+  </BrowserRouter>
 );
 
 
