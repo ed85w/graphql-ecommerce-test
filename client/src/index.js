@@ -1,6 +1,4 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { render } from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import {
   ApolloClient,
