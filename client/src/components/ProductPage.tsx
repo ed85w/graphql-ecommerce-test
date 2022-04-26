@@ -1,42 +1,79 @@
 import { useParams } from 'react-router-dom';
-import { useOutletContext } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
+import { Button, CardActionArea } from '@mui/material';
+import {
+  useQuery,
+  gql
+} from "@apollo/client";
+import Review from './Review';
+import { IProps as Props } from '../App'
 
-interface ProductType {
-  id: string
-  name: string  
-  description: string
-  quantity: number
-  price: number
-  image: string
-  slug: string
-  onSale: boolean
-  category: string
-  reviews: string[]
-  map: Function      // ??????? is this correct
+interface IProps {
+  products: Props["products"]
+  setProducts: React.Dispatch<React.SetStateAction<Props["products"]>>
+  product: Props["product"]
 }
 
-interface ProductsInterface {
-  products: Array<ProductType>
-}
+const SINGLE_PRODUCT_QUERY = gql`
+  query SingleProductQuery($productId: ID!) {
+    product(id: $productId) {
+      id
+      name
+      description
+      price
+      onSale
+      image
+      category {
+        name
+      }
+      reviews {
+        id
+        date
+        comment
+        rating
+      }
+    }
+  }
+`
 
 const ProductPage = () => {
 
-  const { slug } = useParams();
+  const { id } = useParams();
 
-  const [products, setProducts] = useOutletContext<ProductsInterface["products"]>();
+  console.log(id)
 
-  console.log('product page', products)
+  const { loading, error, data } = useQuery(SINGLE_PRODUCT_QUERY, {
+    variables: {
+      "productId": id
+    },
+  });
+
+  const [product, setProduct] = useState<IProps["product"]>()
+
+  useEffect(() => {
+    if(data) {
+      console.log(data)
+      setProduct(data.product)
+    }
+  },[data])
+
+  console.log('product page', product)
 
   return (
     <>
-      {products && products.map((product:ProductType) => (
-        product.slug === slug ?
-          <Card sx={{ maxWidth: 345 }} key={product.id}>
+    {product &&
+    <Grid item key={product.id}>
+      <Grid 
+        container
+        justifyContent="center"
+      >
+        <Grid item>
+          <Card sx={{ maxWidth: 500 }} >
             <CardActionArea>
               <CardMedia
                 component="img"
@@ -54,12 +91,25 @@ const ProductPage = () => {
                 <Typography variant="body2" color="text.secondary">
                   £{product.price}
                 </Typography>
+                <Grid container justifyContent="center">
+                  <Button href={`./edit/${id}`}>Edit</Button>
+                </Grid>
               </CardContent>
             </CardActionArea>
           </Card>
-         :
-        null
-      ))}
+        </Grid>
+        {
+          product.reviews.map((review) => (
+            <Review
+              key={review.id}
+              review={review}
+            />
+          ))
+        }
+
+      </Grid>
+    </Grid>
+    }
     </>
    );
 }

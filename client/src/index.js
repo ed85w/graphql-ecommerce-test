@@ -8,6 +8,7 @@ import {
 import App from './App';
 import ProductPage from './components/ProductPage';
 import Shop from './components/Shop'
+import EditProduct from './components/EditProduct';
 
 
 const client = new ApolloClient({
@@ -28,7 +29,8 @@ root.render(
               <Shop />
             }
           />
-          <Route path=':slug' element={<ProductPage/>}/>
+          <Route path=':id' element={<ProductPage/>}/>
+          <Route path='/edit/:id' element={<EditProduct/>}/>
         </Route>
       </Routes>
     </ApolloProvider>

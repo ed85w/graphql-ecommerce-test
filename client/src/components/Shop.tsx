@@ -1,37 +1,57 @@
 import { Grid } from '@mui/material';
-import Product from './Product';
-import { useOutletContext } from "react-router-dom";
+import ProductCard from './ProductCard';
+import {
+  useQuery,
+  gql
+} from "@apollo/client";
+import { useState, useEffect } from 'react';
+import { IProps as Props } from '../App'
 
-interface ProductType {
-  id: string
-  name: string  
-  description: string
-  quantity: number
-  price: number
-  image: string
-  slug: string
-  onSale: boolean
-  category: string
-  reviews: string[]
-  map: Function      // ??????? is this correct
+interface IProps {
+  products: Props["products"]
+  setProducts: React.Dispatch<React.SetStateAction<Props["products"]>>
+  product: Props["product"]
 }
 
-interface ProductsInterface {
-  products: Array<ProductType>
+const ALL_PRODUCTS_QUERY = gql`
+query AllProductsQuery {
+  products {
+    id
+    name
+    description
+    price
+    onSale
+    image
+    category {
+      name
+    }
+    reviews {
+      rating
+    }
+  }
 }
+`
 
 const Shop = () => {
 
-  const [products, setProducts] = useOutletContext<ProductsInterface["products"]>();
+  const { loading, error, data } = useQuery(ALL_PRODUCTS_QUERY);
+  const [products, setProducts] = useState<IProps["products"]>()
+
+  useEffect(() => {
+    if(data) {
+      console.log("use effect")
+      setProducts(data.products)
+    }
+  },[data])
 
   console.log("shop", products)
 
   return (
     <>
       {products && 
-        products.map((product: ProductType) => (
+        products.map((product:IProps["product"]) => (
           <Grid item xs={12} md={6} lg={3} key={product.id}>
-            <Product product={product}/>
+            <ProductCard product={product}/>
           </Grid>
         ))
       }
